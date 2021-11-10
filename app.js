@@ -9,7 +9,9 @@ var usersRouter = require('./routes/users');
 var watchRouter = require('./routes/watch');
 var addmodsRouter = require('./routes/addmods');
 var SelectorRouter = require('./routes/Selector');
+var Costume = require("./models/costume"); 
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,6 +22,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+module.exports = app;
+const connectionString =  
+process.env.MONGO_CON 
+mongoose = require('mongoose'); 
+mongoose.connect(connectionString,  
+{useNewUrlParser: true, 
+useUnifiedTopology: true});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -42,4 +52,46 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+//Get the default connection 
+var db = mongoose.connection; 
+ 
+//Bind connection to error event  
+db.on('error', console.error.bind(console, 'MongoDB connection error:')); 
+db.once("open", function(){ 
+ console.log("Connection to DB succeeded")}); 
+
+ // We can seed the collection if needed on server start 
+async function recreateDB(){ 
+  // Delete everything 
+  await Costume.deleteMany(); 
+ 
+  let instance1 = new 
+Costume({costume_type:"ghost",  size:'large', 
+cost:25.4}); 
+  instance1.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("First object saved") 
+  }); 
+
+ 
+
+  let instance2 = new 
+Costume({costume_type:"Vampire",  size:'small', 
+cost:25.4}); 
+  instance2.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("Second object saved") 
+  }); 
+
+  let instance3 = new 
+Costume({costume_type:"Monster",  size:'Medium', 
+cost:25.4}); 
+  instance1.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("Third object saved") 
+  }); 
+} 
+ 
+let reseed = true; 
+if (reseed) { recreateDB();} 
+ 
