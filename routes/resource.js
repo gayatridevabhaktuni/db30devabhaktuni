@@ -29,3 +29,4 @@ router.get('/resource/watchs/:id', watch_controller.watch_detail);
 router.get('/resource/watchs', watch_controller.watch_list); 
  
 module.exports = router; 
+
