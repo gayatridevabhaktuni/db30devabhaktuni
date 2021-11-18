@@ -23,3 +23,23 @@ block content
     div.row 
       div(class='watchAttr mr-3') watch Cost is: 
       div #{watchprice} 
+
+    button(class="btn btn-danger m-2" onclick="gobackOnid()") goback 
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+
+  script. 
+    function cancel() { 
+      // Go back to the home page for the watch collection 
+      window.location.href='/watch'
+    }
+
+  script. 
+   function gobackOnid() { 
+     window.location.href='/watch'
+   }
+
+
+
+  
+
+
