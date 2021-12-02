@@ -4,4 +4,4 @@ Heroku server link : https://db30devabhaktuni.herokuapp.com/
 
 class watch
 
-Itemname(String) Quantity(number) price(number)
+Itemname(String) Quantity(string) price(number)
