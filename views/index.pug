@@ -1,22 +1,13 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title} 
-  p This is assignment 10
-  button(type="button",onclick="update()" ,class="btn btn-secondary") Press Me
-  br
-
-  hr
-  div(id="target" )  Display 
-  br
-  a(Type="button", href="/watch") Watch list 
-  script.
-     let client_count = 0
-     function update()
-     {
-       client_count = client_count+1;
-       document.getElementById("target").innerHtml = "value now"+ client_count;
-
-     }
+exextends layout 
+ 
+block content 
+  if (!user) 
+    a(href="/login") Login 
+    br 
+    a(href="/register") Register 
+  if (user) 
+    p You are currently logged in as #{user.username} 
+    a(href="/watch") Take me to watchs 
+    br 
+    a(href="/logout") Logout 
   

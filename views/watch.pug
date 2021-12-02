@@ -2,19 +2,30 @@ extends layout
 
 block content
   h1= title
+  - let createView = `dispatch(\"watch/create\")`
+  button.btn(class="btn-primary m1-2", onclick=createView) Create
    - let watch=results
   div(class="container-fuild")
-    div(class="row")
+    div(class="row m-1")
       each result,index in results
-        div(class = "col-sm-2" id=index onclick=`buy(${index})`) 
+      
+        - let destination = `dispatch(\"/watch/update?id=${result._id}\")` 
+        - let detailView = `dispatch(\"/watch/detail?id=${result._id}\")`
+        - let deleteView = `dispatch(\"/watch/delete?id=${result._id}\")`
+         div(class = "col-sm-2" id=index onclick=`buy(${index})`) 
           p #{result.Itemname}
           p #{result.Quantity}
           p #{result.price}
 
-  script.
-    function buy(element){
-      alert(`You purchased item ${element+1}.`)
-    }
+        button.btn( class="btn-primary ml-1", onclick= destination) Update
+         
+        button.btn(class="btn-success ml-2", onclick= detailView) Detail
+        button.btn(class="btn-danger ml-2", onclick= deleteView) Delete
+
+  script. 
+    function dispatch(path){ 
+      window.location.href=path 
+    } 
 
     
  
